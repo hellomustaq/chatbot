@@ -18,3 +18,11 @@ css.rel = "stylesheet";
 css.type = "text/css";
 css.href = "https://raw.githack.com/hellomustaq/chatbot/master/dist/css/app.3351c57d.css";
 head.appendChild(css); 
+
+
+var css1 = document.createElement('link');
+css1.id = "vue-app-css1";
+css1.rel = "stylesheet";
+css1.type = "text/css";
+css1.href = "https://raw.githack.com/hellomustaq/chatbot/master/dist/css/chunk-vendors.e42e700a.css";
+head.appendChild(css1); 

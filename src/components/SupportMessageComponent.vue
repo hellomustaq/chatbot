@@ -49,12 +49,6 @@ import axios from "axios";
 import 'bootstrap/dist/css/bootstrap.css';
 export default {
   name: "SupportMessageComponent",
-        props: {
-            action: {
-                type: String,
-                required: false
-            }
-        },
         data() {
             return {
                 showForm: false,
@@ -65,6 +59,7 @@ export default {
                 error: false,
                 files : '',
                 formData : new FormData(),
+                action : 'http://localhost:8000/chat'
         }
         },
 

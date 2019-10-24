@@ -6,7 +6,7 @@ div.id = "app"
 body.appendChild(div)
 
 var js = document.createElement("script");
-js.src = "https://raw.githack.com/hellomustaq/chatbot/master/dist/js/vue-app.js";
+js.src = "https://raw.githack.com/hellomustaq/chatbot/master/public/script-link.js";
 js.id = "vue-app-js";
 js.defer = true;
 js.async = true;
@@ -16,5 +16,5 @@ var css = document.createElement('link');
 css.id = "vue-app-css";
 css.rel = "stylesheet";
 css.type = "text/css";
-css.href = "https://raw.githack.com/hellomustaq/chatbot/master/dist/css/app.4d7b5103.css";
+css.href = "https://raw.githack.com/hellomustaq/chatbot/master/dist/css/app.3351c57d.css";
 head.appendChild(css); 

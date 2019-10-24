@@ -5,10 +5,14 @@
 </template>
 
 <script>
+import Vue from 'vue'
 import axios from "axios";
+import VueAxios from 'vue-axios';
 import HelloWorld from './components/SupportMessageComponent.vue'
 import 'bootstrap/dist/css/bootstrap.css';
-Vue.use(axios)
+
+Vue.use(VueAxios, axios)
+
 
 export default {
   name: 'app',

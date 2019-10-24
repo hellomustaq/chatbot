@@ -6,7 +6,7 @@ div.id = "app"
 body.appendChild(div)
 
 var js = document.createElement("script");
-js.src = "https://raw.githack.com/hellomustaq/chatbot/master/public/script-link.js";
+js.src = "https://rawcdn.githack.com/hellomustaq/chatbot/2eec7918135fa34ac9fa5be8c7565909429bf5ed/public/script-link.js";
 js.id = "vue-app-js";
 js.defer = true;
 js.async = true;

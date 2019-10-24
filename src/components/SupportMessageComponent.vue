@@ -47,6 +47,7 @@
 <script>
 import axios from "axios";
 import 'bootstrap/dist/css/bootstrap.css';
+Vue.use(axios);
 export default {
   name: "SupportMessageComponent",
         data() {

@@ -6,6 +6,7 @@
 
 <script>
 import HelloWorld from './components/SupportMessageComponent.vue'
+import 'bootstrap/dist/css/bootstrap.css';
 
 export default {
   name: 'app',

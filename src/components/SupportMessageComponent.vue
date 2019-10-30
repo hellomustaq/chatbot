@@ -32,40 +32,42 @@
                         </form>
                     </div>
                     <div style="position:absolute;bottom:0;width:100%;" v-else>
-
-
-
+                        <div class="padd">
+                            <h4 class="text-left text-white">Chatting with supports </h4>
+                        </div>
                         <div class="mesgs">
                             <div class="msg_history">
-                                
-                                
                                 <div class="incoming_msg">
-                                <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
+                                    <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil">
+                                    </div>
                                     <div class="received_msg">
                                         <div class="received_withd_msg">
                                         <p>Test, which is a new approach to have</p>
-                                        <span class="time_date"> 11:01 AM    |    Yesterday</span></div>
+                                        <span class="time_date"> 11:01 AM    |    Yesterday</span>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="outgoing_msg">
-                                <div class="sent_msg">
-                                    <p>Apollo University, Test Data</p>
-                                    <span class="time_date"> 11:01 AM    |    Today</span> </div>
+                                    <div class="sent_msg">
+                                        <p>Apollo University, Test Data</p>
+                                        <span class="time_date"> 11:01 AM    |    Today</span>
+                                    </div>
                                 </div>
                                 <div class="incoming_msg">
-                                <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil"> </div>
-                                <div class="received_msg" v-for="item in this.response" :key="item">
-                                    <div class="received_withd_msg">
-                                    <p>{{ item }}</p>
-                                    <span class="time_date"> 11:01 AM    |    Today</span></div>
-                                </div>
+                                    <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil">
+                                    </div>
+                                    <div class="received_msg" v-for="item in this.response" :key="item">
+                                        <div class="received_withd_msg">
+                                        <p>{{ item }}</p>
+                                        <span class="time_date"> 11:01 AM    |    Today</span></div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="type_msg">
                                 <form action="" @submit.prevent="sendMessageSingle">
                                     <div class="input_msg_write">
                                     <input type="text" class="write_msg" placeholder="Type a message">
-                                    <button class="msg_send_btn" type="submit"><i class="fa fa-paper-plane-o" aria-hidden="true"></i></button>
+                                    <button class="msg_send_btn" type="submit"><img src="https://img.icons8.com/dotty/80/000000/filled-sent.png"></button>
                                     </div>
                                 </form>
                             </div>
@@ -76,7 +78,11 @@
         </div>
 
         <a class="support-float" @click="showForm = !showForm">
-            <i id="icon" v-bind:class="[(showForm === true ? 'fa fa-times-circle button-circle' : 'fa fa-envelope button-message')]"></i>
+            <img v-if="showForm" class="p-13" src="https://img.icons8.com/pastel-glyph/64/000000/cancel.png">
+            <img v-else class="p-13" src="https://img.icons8.com/ios/50/000000/speech-bubble-with-dots.png">
+            <img >
+
+<!--            <i id="icon" v-bind:class="[(showForm === true ? 'fa fa-times-circle button-circle' : 'fa fa-envelope button-message')]"></i>-->
         </a>
     </div>
 </template>
@@ -99,8 +105,6 @@ export default {
                 error: false,
                 formData : new FormData(),
                 action : 'http://127.0.0.1:8000/api/chat',
-                // response from teleaus chat bot
-
                 first : true,
                 response : [],
                 singleMessage : '',
@@ -138,17 +142,17 @@ export default {
                 Vue.axios.post(this.action, this.formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data',
-                    }})
-                    .then(response => {
-                            this.first = false
-                            this.response.push(response.data.teleaus_reply)
-                            
-                        if (status === 'success') {
-                            this.sentMessage = true;
-                        } else {
-                            this.error = true;
-                        }
-                    })
+                }})
+                .then(response => {
+                        this.first = false
+                        this.response.push(response.data.teleaus_reply)
+                        
+                    if (status === 'success') {
+                        this.sentMessage = true;
+                    } else {
+                        this.error = true;
+                    }
+                })
             }
         }
 }
@@ -167,7 +171,7 @@ export default {
         bottom: 90px;
         right: 35px;
         color: #555555;
-        border-radius: 10px;
+        border-radius: 0 0 10px 10px;
     }
 
     .support-wrapper p {
@@ -263,8 +267,10 @@ export default {
 
     /* chat box */
 
-.container{max-width:1170px; margin:auto;}
-img{ max-width:100%;}
+
+img{ 
+    max-width:100%;
+}
 .inbox_people {
   background: #f8f8f8 none repeat scroll 0 0;
   float: left;
@@ -276,23 +282,38 @@ img{ max-width:100%;}
   clear: both;
   overflow: hidden;
 }
-.top_spac{ margin: 20px 0 0;}
+.top_spac{ 
+    margin: 20px 0 0;
+}
 
 
-.recent_heading {float: left; width:40%;}
+.recent_heading {
+    float: left;
+     width:40%;
+}
 .srch_bar {
   display: inline-block;
   text-align: right;
   width: 60%; padding:0;
 }
-.headind_srch{ padding:10px 29px 10px 20px; overflow:hidden; border-bottom:1px solid #c4c4c4;}
+.headind_srch{
+     padding:10px 29px 10px 20px; 
+     overflow:hidden; 
+     border-bottom:1px solid #c4c4c4;
+}
 
 .recent_heading h4 {
   color: #05728f;
   font-size: 21px;
   margin: auto;
 }
-.srch_bar input{ border:1px solid #cdcdcd; border-width:0 0 1px 0; width:80%; padding:2px 0 4px 6px; background:none;}
+.srch_bar input{ 
+    border:1px solid #cdcdcd; 
+    border-width:0 0 1px 0; 
+    width:80%; 
+    padding:2px 0 4px 6px; 
+    background:none;
+}
 .srch_bar .input-group-addon button {
   background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
   border: medium none;
@@ -300,11 +321,23 @@ img{ max-width:100%;}
   color: #707070;
   font-size: 18px;
 }
-.srch_bar .input-group-addon { margin: 0 0 0 -27px;}
+.srch_bar .input-group-addon { 
+    margin: 0 0 0 -27px;
+}
 
-.chat_ib h5{ font-size:15px; color:#464646; margin:0 0 8px 0;}
-.chat_ib h5 span{ font-size:13px; float:right;}
-.chat_ib p{ font-size:14px; color:#989898; margin:auto}
+.chat_ib h5{ 
+    font-size:15px; 
+    color:#464646; 
+    margin:0 0 8px 0;
+}
+.chat_ib h5 span{ 
+    font-size:13px; float:right;
+}
+.chat_ib p{ 
+    font-size:14px; 
+    color:#989898; 
+    margin:auto
+}
 .chat_img {
   float: left;
   width: 11%;
@@ -315,15 +348,22 @@ img{ max-width:100%;}
   width: 88%;
 }
 
-.chat_people{ overflow:hidden; clear:both;}
+.chat_people{ 
+    overflow:hidden; 
+    clear:both;
+}
 .chat_list {
   border-bottom: 1px solid #c4c4c4;
   margin: 0;
   padding: 18px 16px 10px;
 }
-.inbox_chat { height: 550px; overflow-y: scroll;}
+.inbox_chat {
+    height: 550px; overflow-y: scroll;
+}
 
-.active_chat{ background:#ebebeb;}
+.active_chat{ 
+    background:#ebebeb;
+}
 
 .incoming_msg_img {
   display: inline-block;
@@ -350,15 +390,17 @@ img{ max-width:100%;}
   font-size: 12px;
   margin: 8px 0 0;
 }
-.received_withd_msg { width: 57%;}
+.received_withd_msg { 
+    width: 57%;
+}
 .mesgs {
   float: left;
-  padding: 30px 15px 0 25px;
+  padding: 10px 15px 0 25px;
   width: 100%;
 }
 
  .sent_msg p {
-  background: #05728f none repeat scroll 0 0;
+  background: #e52525 none repeat scroll 0 0;
   border-radius: 3px;
   font-size: 14px;
   margin: 0; color:#fff;
@@ -367,7 +409,7 @@ img{ max-width:100%;}
 }
 .outgoing_msg{ 
     overflow:hidden; margin:26px 0 26px;
-    }
+}
 
 .received_withd_msg p{
     background: white;
@@ -385,9 +427,12 @@ img{ max-width:100%;}
   width: 100%;
 }
 
-.type_msg {border-top: 1px solid #c4c4c4;position: relative;}
+.type_msg {
+    border-top: 1px solid #c4c4c4;position: relative;
+}
+
 .msg_send_btn {
-  background: #05728f none repeat scroll 0 0;
+  background: #48d874 none repeat scroll 0 0;
   border: medium none;
   border-radius: 50%;
   color: #fff;
@@ -399,9 +444,27 @@ img{ max-width:100%;}
   top: 11px;
   width: 33px;
 }
-.messaging { padding: 0 0 50px 0;}
+
+.messaging { 
+    padding: 0 0 50px 0;
+}
+
 .msg_history {
     height: 285px;
   overflow-y: auto;
 }
+
+.p-13{
+    padding : 13px;
+}
+
+.padd {
+    background: #e52525;
+    padding: 8px;
+    border-radius: 7px 7px 0px 0px;
+}
+
+    .text-white{
+        color: white;
+    }
 </style>

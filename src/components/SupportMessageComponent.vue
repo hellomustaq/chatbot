@@ -134,7 +134,6 @@ export default {
                         } else {
                             this.error = true;
                         }
-
                     })
             },
 

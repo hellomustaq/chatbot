@@ -104,7 +104,7 @@ export default {
                 phone: '',
                 error: false,
                 formData : new FormData(),
-                action : 'http://127.0.0.1:8000/api/chat',
+                action : 'http://127.0.0.1:8000/chatbotV4',
                 first : true,
                 response : [],
                 singleMessage : '',
@@ -116,36 +116,37 @@ export default {
         },
         methods: {
             sendMessage() {
-                this.formData.append('email', this.email);
-                this.formData.append('phone', this.phone);
-                this.formData.append('message', this.message);
-
-                Vue.axios.post(this.action, this.formData, {
+                // this.formData.append('email', this.email);
+                // this.formData.append('phone', this.phone);
+                this.formData.append('messageText', this.message);
+                Vue.axios.post('http://127.0.0.1:8000/chatbotV4', this.formData, {
+                    mode : 'no-cors',
                     headers: {
-                        'Content-Type': 'multipart/form-data',
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                        'X-Requested-With': 'XMLHttpRequest',
                     }})
                     .then(response => {
-                        this.response.push(response.data.teleaus_reply)
+                        this.response.push(response.data.answer)
                             this.first = false
-                        if (status === 'success') {
+                        if (status == 200) {
                             this.sentMessage = true;
-                            
+
                         } else {
                             this.error = true;
                         }
-                        
+
                     })
             },
 
             sendMessageSingle(){
-                this.formData.append('message', this.message);
+                this.formData.append('body', this.message);
                 Vue.axios.post(this.action, this.formData, {
                     headers: {
-                        'Content-Type': 'multipart/form-data',
+                        'Content-Type': 'application/x-www-form-urlencoded',
                 }})
                 .then(response => {
                         this.first = false
-                        this.response.push(response.data.teleaus_reply)
+                        this.response.push(response.data.answer)
                         
                     if (status === 'success') {
                         this.sentMessage = true;

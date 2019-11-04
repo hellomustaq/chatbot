@@ -104,7 +104,7 @@ export default {
                 phone: '',
                 error: false,
                 formData : new FormData(),
-                action : 'http://127.0.0.1:8000/chatbotV4',
+                action : 'http://127.0.0.1:8000/chatbotV4/',
                 first : true,
                 response : [],
                 singleMessage : '',
@@ -119,7 +119,7 @@ export default {
                 // this.formData.append('email', this.email);
                 // this.formData.append('phone', this.phone);
                 this.formData.append('messageText', this.message);
-                Vue.axios.post('http://127.0.0.1:8000/chatbotV4', this.formData, {
+                Vue.axios.post('http://127.0.0.1:8000/chatbotV4/', this.formData, {
                     mode : 'no-cors',
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded',

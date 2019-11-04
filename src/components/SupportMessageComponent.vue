@@ -37,41 +37,35 @@
                         </div>
                         <div class="mesgs">
                             <div class="msg_history">
-                                <div class="incoming_msg">
-                                    <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil">
-                                    </div>
-                                    <div class="received_msg">
-                                        <div class="received_withd_msg">
-                                        <p>Test, which is a new approach to have</p>
-                                        <span class="time_date"> 11:01 AM    |    Yesterday</span>
+                                <div v-for="message in this.messageBot" :key="message">
+                                    <div v-if="message.type === 'send'" class="outgoing_msg">
+                                        <div class="sent_msg">
+                                            <p>{{ message.text }}</p>
+                                            <span class="time_date"> 11:01 AM    |    Today</span>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="outgoing_msg">
-                                    <div class="sent_msg">
-                                        <p>Apollo University, Test Data</p>
-                                        <span class="time_date"> 11:01 AM    |    Today</span>
-                                    </div>
-                                </div>
-                                <div class="incoming_msg">
-                                    <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil">
-                                    </div>
-                                    <div class="received_msg" v-for="item in this.response" :key="item">
-                                        <div class="received_withd_msg">
-                                        <p>{{ item }}</p>
-                                        <span class="time_date"> 11:01 AM    |    Today</span></div>
+
+                                    <div v-else class="incoming_msg">
+                                        <div class="incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="sunil">
+                                        </div>
+                                        <div class="received_msg">
+                                            <div class="received_withd_msg">
+                                            <p>{{ message.text }}</p>
+                                            <span class="time_date"> 11:01 AM    |    Yesterday</span>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="type_msg">
                                 <form action="" @submit.prevent="sendMessageSingle">
                                     <div class="input_msg_write">
-                                    <input type="text" class="write_msg" placeholder="Type a message">
+                                    <input v-model="message" type="text" class="write_msg" placeholder="Type a message">
                                     <button class="msg_send_btn" type="submit"><img src="https://img.icons8.com/dotty/80/000000/filled-sent.png"></button>
                                     </div>
                                 </form>
                             </div>
-                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -106,7 +100,7 @@ export default {
                 formData : new FormData(),
                 action : 'http://127.0.0.1:8000/chatbotV4/',
                 first : true,
-                response : [],
+                messageBot : [],
                 singleMessage : '',
         }
         },
@@ -116,8 +110,15 @@ export default {
         },
         methods: {
             sendMessage() {
+
+                // Vue.set(this.messageBot,'send-'+this.random(10) , this.message)
                 // this.formData.append('email', this.email);
                 // this.formData.append('phone', this.phone);
+                let obj = {"type": "send", "text": this.message};
+                this.messageBot.push(obj);
+
+                console.log(this.messageBot)
+
                 this.formData.append('messageText', this.message);
                 Vue.axios.post('http://127.0.0.1:8000/chatbotV4/', this.formData, {
                     mode : 'no-cors',
@@ -126,33 +127,49 @@ export default {
                         'X-Requested-With': 'XMLHttpRequest',
                     }})
                     .then(response => {
-                        this.response.push(response.data.answer)
-                            this.first = false
-                        if (status == 200) {
-                            this.sentMessage = true;
+                        this.first = false
+                        this.sentMessage = true;
 
-                        } else {
-                            this.error = true;
-                        }
+                        let obj = {"type": "reply", "text": response.data};
+                        this.messageBot.push(obj);
+
                     })
             },
 
             sendMessageSingle(){
+                let obj = {"type": "send", "text": this.message};
+                this.messageBot.push(obj);
+                Vue.set(this.messageBot,'send-'+this.random(10) , this.message)
                 this.formData.append('body', this.message);
                 Vue.axios.post(this.action, this.formData, {
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded',
                 }})
                 .then(response => {
-                        this.first = false
-                        this.response.push(response.data.answer)
-                        
+                    console.log(response.data)
+                    this.first = false
+
+                    let obj = {"type": "reply", "text": response.data};
+                    this.messageBot.push(obj);
+
+                    console.log(this.messageBot)
+
                     if (status === 'success') {
                         this.sentMessage = true;
                     } else {
                         this.error = true;
                     }
                 })
+            },
+
+            random(length){
+                var text = "";
+                var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+                for (var i = 0; i < length; i++)
+                    text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+                return text;
             }
         }
 }

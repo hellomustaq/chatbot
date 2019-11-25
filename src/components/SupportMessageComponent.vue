@@ -61,7 +61,7 @@
                                 <form action="" @submit.prevent="sendMessageSingle">
                                     <div class="input_msg_write">
                                     <input v-model="message" type="text" class="write_msg" placeholder="Type a message" required>
-                                    <button class="msg_send_btn" type="submit"><img src="https://img.icons8.com/dotty/80/000000/filled-sent.png"></button>
+                                    <button class="msg_send_btn p-5" type="submit"><img src="https://img.icons8.com/dotty/80/000000/filled-sent.png"></button>
                                     </div>
                                 </form>
                             </div>

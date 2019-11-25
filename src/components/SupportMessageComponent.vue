@@ -50,7 +50,7 @@
                                         </div>
                                         <div class="received_msg">
                                             <div class="received_withd_msg">
-                                            <p>{{ message.text }}</p>
+                                            <p>{{ message.text.response }}</p>
                                             <span class="time_date"> 11:01 AM    |    Yesterday</span>
                                             </div>
                                         </div>
@@ -98,7 +98,7 @@ export default {
                 phone: '',
                 error: false,
                 formData : new FormData(),
-                action : 'http://127.0.0.1:8000/chatbotV4/',
+                action : 'http://taleantai.com/teleausbot/',
                 first : true,
                 messageBot : [],
                 singleMessage : '',
@@ -111,20 +111,21 @@ export default {
         methods: {
             sendMessage() {
 
-                // Vue.set(this.messageBot,'send-'+this.random(10) , this.message)
-                // this.formData.append('email', this.email);
-                // this.formData.append('phone', this.phone);
+                Vue.set(this.messageBot,'send-'+this.random(10) , this.message)
+                this.formData.append('email', this.email);
+                this.formData.append('phone', this.phone);
                 let obj = {"type": "send", "text": this.message};
                 this.messageBot.push(obj);
 
                 console.log(this.messageBot)
 
                 this.formData.append('messageText', this.message);
-                Vue.axios.post('http://127.0.0.1:8000/chatbotV4/', this.formData, {
+                Vue.axios.post('http://taleantai.com/teleausbot/', this.formData, {
                     mode : 'no-cors',
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded',
                         'X-Requested-With': 'XMLHttpRequest',
+                        'Authorization' : 'Token 8bc074db1ec604693458ba15b0dd50af41b962c3'
                     }})
                     .then(response => {
                         this.first = false
@@ -139,20 +140,22 @@ export default {
             sendMessageSingle(){
                 let obj = {"type": "send", "text": this.message};
                 this.messageBot.push(obj);
-                Vue.set(this.messageBot,'send-'+this.random(10) , this.message)
-                this.formData.append('body', this.message);
+                Vue.set(this.messageBot,'send-'+this.random(10) , this.message);
+                this.formData.set('messageText', this.message);
+                console.log(this.message);
                 Vue.axios.post(this.action, this.formData, {
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded',
+                        'Authorization' : 'Token 8bc074db1ec604693458ba15b0dd50af41b962c3'
                 }})
                 .then(response => {
-                    console.log(response.data)
-                    this.first = false
+                    console.log(response.data);
+                    this.first = false;
 
                     let obj = {"type": "reply", "text": response.data};
                     this.messageBot.push(obj);
 
-                    console.log(this.messageBot)
+                    console.log(this.messageBot);
 
                     if (status === 'success') {
                         this.sentMessage = true;

@@ -33,7 +33,7 @@
                     </div>
                     <div style="position:absolute;bottom:0;width:100%;" v-else>
                         <div class="padd">
-                            <h4 class="text-left text-white">Chatting with supports </h4>
+                            <h4 class="text-left text-white">Chatting with support team! </h4>
                         </div>
                         <div class="mesgs">
                             <div class="msg_history" id="msg_history" v-chat-scroll>
@@ -41,7 +41,7 @@
                                     <div v-if="message.type === 'send'" class="outgoing_msg">
                                         <div class="sent_msg">
                                             <p>{{ message.text }}</p>
-                                            <span class="time_date"> 11:01 AM    |    Today</span>
+                                            <span class="text-right time_date"> 11:01 AM    |    Today</span>
                                         </div>
                                     </div>
 
@@ -51,7 +51,7 @@
                                         <div class="received_msg">
                                             <div class="received_withd_msg">
                                             <p><span v-html="message.text.response"></span></p>
-                                            <span class="time_date"> 11:01 AM    |    Yesterday</span>
+                                            <span class="text-left time_date"> 11:01 AM    |    Yesterday</span>
                                             </div>
                                         </div>
                                     </div>
@@ -61,7 +61,7 @@
                                 <form action="" @submit.prevent="sendMessageSingle">
                                     <div class="input_msg_write">
                                     <input v-model="message" type="text" class="write_msg" placeholder="Type a message" required>
-                                    <button class="msg_send_btn p-5" type="submit"><img src="https://img.icons8.com/dotty/80/000000/filled-sent.png"></button>
+                                    <button class="msg_send_btn p-2" type="submit"><img src="https://img.icons8.com/dotty/80/000000/filled-sent.png"></button>
                                     </div>
                                 </form>
                             </div>
@@ -427,6 +427,7 @@ img{
 }
 
 .received_withd_msg p{
+    margin-top: 0px;
     background: white;
 }
 .sent_msg {

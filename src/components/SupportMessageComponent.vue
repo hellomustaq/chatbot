@@ -36,7 +36,7 @@
                             <h4 class="text-left text-white">Chatting with supports </h4>
                         </div>
                         <div class="mesgs">
-                            <div class="msg_history">
+                            <div class="msg_history" id="msg_history" v-chat-scroll>
                                 <div v-for="message in this.messageBot" :key="message">
                                     <div v-if="message.type === 'send'" class="outgoing_msg">
                                         <div class="sent_msg">
@@ -50,7 +50,7 @@
                                         </div>
                                         <div class="received_msg">
                                             <div class="received_withd_msg">
-                                            <p>{{ message.text.response }}</p>
+                                            <p><span v-html="message.text.response"></span></p>
                                             <span class="time_date"> 11:01 AM    |    Yesterday</span>
                                             </div>
                                         </div>
@@ -60,7 +60,7 @@
                             <div class="type_msg">
                                 <form action="" @submit.prevent="sendMessageSingle">
                                     <div class="input_msg_write">
-                                    <input v-model="message" type="text" class="write_msg" placeholder="Type a message">
+                                    <input v-model="message" type="text" class="write_msg" placeholder="Type a message" required>
                                     <button class="msg_send_btn" type="submit"><img src="https://img.icons8.com/dotty/80/000000/filled-sent.png"></button>
                                     </div>
                                 </form>
@@ -99,7 +99,7 @@ export default {
                 first : true,
                 messageBot : [],
                 singleMessage : '',
-        }
+            }
         },
 
         mounted(){
@@ -113,7 +113,6 @@ export default {
                 this.formData.append('phone', this.phone);
                 let obj = {"type": "send", "text": this.message};
                 this.messageBot.push(obj);
-
                 console.log(this.messageBot)
 
                 this.formData.append('messageText', this.message);
@@ -130,6 +129,7 @@ export default {
 
                         let obj = {"type": "reply", "text": response.data};
                         this.messageBot.push(obj);
+                        this.message = '';
 
                     })
             },
@@ -148,11 +148,9 @@ export default {
                 .then(response => {
                     console.log(response.data);
                     this.first = false;
-
                     let obj = {"type": "reply", "text": response.data};
                     this.messageBot.push(obj);
-
-                    console.log(this.messageBot);
+                    this.message = '';
 
                     if (status === 'success') {
                         this.sentMessage = true;
@@ -170,7 +168,7 @@ export default {
                     text += possible.charAt(Math.floor(Math.random() * possible.length));
 
                 return text;
-            }
+            },
         }
 }
 </script>

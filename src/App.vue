@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="talentAI">
     <HelloWorld msg="Welcome to Your Vue.js App"/>
   </div>
 </template>
@@ -15,7 +15,7 @@ Vue.use(VueAxios, axios)
 
 
 export default {
-  name: 'app',
+  name: 'talentAI',
   components: {
     HelloWorld
   }

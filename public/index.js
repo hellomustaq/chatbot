@@ -2,7 +2,7 @@ var head = document.getElementsByTagName('head')[0];
 var body = document.getElementsByTagName('body')[0];
 
 var div = document.createElement("div");
-div.id = "app"
+div.id = "talentAI"
 body.appendChild(div)
 
 var js = document.createElement("script");

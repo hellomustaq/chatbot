@@ -5,7 +5,7 @@
                 <div class="taleantAI-support-body" style="postition:relative;">
                     <div v-if="this.first">
                         <h3>Send Message to Support Team!</h3>
-                        <p v-if="!sentMessage">Use the form below to share your questions, ideas, comments and feedback.</p>
+                        <p class="taleantAI-welcome-text" v-if="!sentMessage">Use the form below to share your questions, ideas, comments and feedback.</p>
 
                         <div class="taleantAI-success-message" v-if="this.sentMessage">
                             <p>Thanks for your message. Our technical team received your query and working on it, We will get back to you shortly. Typically it may take 24 hours</p>
@@ -94,7 +94,7 @@ export default {
                 phone: '',
                 error: false,
                 formData : new FormData(),
-                action : 'http://taleantai.com/teleausbot/',
+                action : 'https://taleantai.com/taleantbot/',
                 first : true,
                 messageBot : [],
                 singleMessage : '',
@@ -115,12 +115,12 @@ export default {
                 console.log(this.messageBot)
 
                 this.formData.append('messageText', this.message);
-                Vue.axios.post('http://taleantai.com/teleausbot/', this.formData, {
+                Vue.axios.post('https://taleantai.com/taleantbot/', this.formData, {
                     mode : 'no-cors',
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded',
                         'X-Requested-With': 'XMLHttpRequest',
-                        'Authorization' : 'Token 8bc074db1ec604693458ba15b0dd50af41b962c3'
+                        'Authorization' : 'Token e68596f710b9163ea420ec33a5774c7dd2b22d44'
                     }})
                     .then(response => {
                         this.first = false
@@ -142,7 +142,7 @@ export default {
                 Vue.axios.post(this.action, this.formData, {
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded',
-                        'Authorization' : 'Token 8bc074db1ec604693458ba15b0dd50af41b962c3'
+                        'Authorization' : 'Token e68596f710b9163ea420ec33a5774c7dd2b22d44'
                 }})
                 .then(response => {
                     console.log(response.data);
@@ -179,9 +179,21 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+    .taleantAI-welcome-text{
+        /*padding-left: 20px;*/
+    }
+
     .taleantAI-support-container {
         z-index: 999999;
         position: absolute;
+    }
+
+    .taleantAI-support-container input{
+        text-indent: 10px;
+    }
+
+    .taleantAI-support-container textarea{
+        text-indent: 10px;
     }
 
     .taleantAI-support-wrapper {
@@ -202,7 +214,7 @@ export default {
 
     .taleantAI-support-form {
         width: 350px;
-        height: 340px;
+        height: 390px;
         text-align: center;
         margin-bottom: 5px;
     }
@@ -216,7 +228,8 @@ export default {
         font-weight: 400;
         float: left;
         background: #e42525;
-        padding: 14px;
+        padding-top: 14px;
+        padding-bottom: 14px;
         margin: 0;
         width: 100%;
         color: #fff;
@@ -263,19 +276,22 @@ export default {
     /* chat box */
 
 
-    .taleantAI-msg_send_btn img, .taleantAI-support-float img, .taleantAI-p-13 img, .taleantAI-incoming_msg_img img{
-        max-width:100%;
-    }
+.taleantAI-msg_send_btn img, .taleantAI-support-float img, .taleantAI-p-13 img, .taleantAI-incoming_msg_img img{
+    max-width:100%;
+}
 
 .taleantAI-incoming_msg_img {
   display: inline-block;
   width: 6%;
+    float:left;
 }
 .taleantAI-received_msg {
   display: inline-block;
   padding: 0 0 0 10px;
   vertical-align: top;
-  width: 92%;
+  width: 90%;
+  margin-left: 20px;
+  margin-top: -33px;
  }
  .taleantAI-received_withd_msg p {
   background: #ebebeb none repeat scroll 0 0;
@@ -297,8 +313,9 @@ export default {
 }
 .taleantAI-mesgs {
   float: left;
-  padding: 10px 15px 0 25px;
+  /*padding: 10px 15px 0 25px;*/
   width: 100%;
+
 }
 
  .taleantAI-sent_msg p {
@@ -320,6 +337,7 @@ export default {
 .taleantAI-sent_msg {
   float: right;
   width: 46%;
+    margin-right: 30px;
 }
 .taleantAI-input_msg_write input {
   background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
@@ -335,6 +353,8 @@ export default {
 }
 
 .taleantAI-msg_send_btn {
+    padding: 5px;
+    margin-right: 12px;
   background: #48d874 none repeat scroll 0 0;
   border: medium none;
   border-radius: 50%;
@@ -354,17 +374,18 @@ export default {
 
 .taleantAI-msg_history {
     height: 285px;
-  overflow-y: auto;
+    overflow-y: auto;
 }
 
 .taleantAI-p-13{
-    padding : 13px;
+    /*padding : 13px;*/
+    margin-top: 5px;
 }
 
 .taleantAI-padd {
     background: #e52525;
     padding: 8px;
-    border-radius: 7px 7px 0px 0px;
+    border-radius: 7px 7px 0 0;
 }
 
 .text-white{
@@ -396,7 +417,7 @@ export default {
         display: block;
         width: 100%;
         height: calc(1.5em + 1.5rem + 2px);
-        padding: 0.375rem 0.75rem;
+        /*padding: 0.375rem 0.75rem;*/
         /*font-size: 1rem;*/
         font-weight: 400;
         line-height: 1.5;

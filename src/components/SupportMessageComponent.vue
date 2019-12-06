@@ -214,7 +214,7 @@ export default {
 
     .taleantAI-support-form {
         width: 350px;
-        height: 390px;
+        height: 320px;
         text-align: center;
         margin-bottom: 5px;
     }
@@ -380,6 +380,8 @@ export default {
 .taleantAI-p-13{
     /*padding : 13px;*/
     margin-top: 5px;
+    width: 45px;
+    margin: 8px;
 }
 
 .taleantAI-padd {

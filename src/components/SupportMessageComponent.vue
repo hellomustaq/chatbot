@@ -214,7 +214,7 @@ export default {
 
     .taleantAI-support-form {
         width: 350px;
-        height: 320px;
+        height: 328px;
         text-align: center;
         margin-bottom: 5px;
     }

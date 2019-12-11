@@ -24,7 +24,7 @@
                             </div>
 
                             <div class="taleantAI-form-group">
-                                <textarea class="taleantAI-form-control" required rows="3" v-model="message" name="message" placeholder="Write message"></textarea>
+                                <textarea style="height: 80px;" class="taleantAI-form-control" required rows="3" v-model="message" name="message" placeholder="Write message"></textarea>
                             </div>
                             <div class="taleantAI-form-group">
                                 <button type="submit" class="taleantAI-form-control btn  btn-default">Send</button>
@@ -59,7 +59,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div v-if="typing" class="taleantAI-text-left taleantAI-mt-100">
+                            <div v-if="!typing" class="taleantAI-typing taleantAI-text-left taleantAI-mt-100">
                                 <div class="taleantAI-incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="avater">
                                 </div>
                                 <img class="taleantAI-mt--10 taleantAI-typing-img" width="50" height="40" src="https://media1.tenor.com/images/ea1209340ee07d9d9dae67dc0d06b4b3/tenor.gif" alt="">
@@ -141,7 +141,7 @@ export default {
                             this.messageBot.push(obj);
                             this.message = '';
                             this.currentDateTime()
-                        }.bind(this), 3000);
+                        }.bind(this), 1000);
 
                     })
             },
@@ -177,7 +177,7 @@ export default {
                             this.error = true;
                         }
 
-                    }.bind(this), 1500)
+                    }.bind(this), 1000)
 
 
                 })
@@ -216,6 +216,7 @@ export default {
 <style scoped>
     .taleantAI-welcome-text{
         /*padding-left: 20px;*/
+        padding: 0 10px;
     }
 
     .taleantAI-support-container {
@@ -452,6 +453,14 @@ export default {
 
 .taleantAI-text-right{
     text-align: right;
+}
+
+input.taleantAI-write_msg:focus {
+    outline-width: 0;
+}
+
+.taleantAI-typing{
+    padding: 0 0 0 15px;
 }
 
 

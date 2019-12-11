@@ -177,7 +177,7 @@ export default {
                             this.error = true;
                         }
 
-                    }.bind(this), 3000)
+                    }.bind(this), 1500)
 
 
                 })
@@ -197,9 +197,11 @@ export default {
                 const mlist = [ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ];
                 const today = new Date();
                 const date = today.getDate()+' '+(mlist[today.getMonth()])+', '+ today.getFullYear();
-                const time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-                this.time = time;
+                // const time = today.getHours() + ":" + today.getMinutes();
+                this.time = today.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
                 this.date=date;
+
+
             }
         }
 }
@@ -235,7 +237,7 @@ export default {
         bottom: 90px;
         right: 35px;
         color: #555555;
-        border-radius: 0 0 10px 10px;
+        border-radius: 10px 10px 10px 10px;
     }
 
     .taleantAI-support-wrapper p {
@@ -312,11 +314,15 @@ export default {
 .taleantAI-msg_send_btn img, .taleantAI-support-float img, .taleantAI-p-13 img, .taleantAI-incoming_msg_img img{
     max-width:100%;
 }
-
+.taleantAI-incoming_msg{
+    margin-left: 10px;
+}
 .taleantAI-incoming_msg_img {
   display: inline-block;
   width: 6%;
-    float:left;
+  float:left;
+  margin-top: 20px;
+
 }
 .taleantAI-received_msg {
   display: inline-block;
@@ -360,7 +366,7 @@ export default {
   width:100%;
 }
 .taleantAI-outgoing_msg{
-    overflow:hidden; margin:26px 0 26px;
+    overflow:hidden; margin:15px 0 15px;
 }
 
 .taleantAI-received_withd_msg p{
@@ -370,7 +376,7 @@ export default {
 .taleantAI-sent_msg {
   float: right;
   width: 46%;
-    margin-right: 30px;
+    margin-right: 15px;
 }
 .taleantAI-input_msg_write input {
   background: rgba(0, 0, 0, 0) none repeat scroll 0 0;

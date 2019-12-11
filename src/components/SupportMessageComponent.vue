@@ -59,7 +59,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div v-if="!typing" class="taleantAI-typing taleantAI-text-left taleantAI-mt-100">
+                            <div v-if="typing" class="taleantAI-typing taleantAI-text-left taleantAI-mt-100">
                                 <div class="taleantAI-incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="avater">
                                 </div>
                                 <img class="taleantAI-mt--10 taleantAI-typing-img" width="50" height="40" src="https://media1.tenor.com/images/ea1209340ee07d9d9dae67dc0d06b4b3/tenor.gif" alt="">
@@ -67,7 +67,7 @@
                             <div class="taleantAI-type_msg">
                                 <form action="" @submit.prevent="sendMessageSingle">
                                     <div class="taleantAI-input_msg_write">
-                                    <input v-model="message" type="text" class="taleantAI-write_msg" placeholder="Type a message" required>
+                                    <input v-model="message" type="text" class="taleantAI-write_msg" placeholder="Type a message..." required>
                                     <button class="taleantAI-msg_send_btn p-2" type="submit"><img src="https://img.icons8.com/dotty/80/000000/filled-sent.png"></button>
                                     </div>
                                 </form>
@@ -117,15 +117,14 @@ export default {
         },
         methods: {
             sendMessage() {
-
                 Vue.set(this.messageBot,'send-'+this.random(10) , this.message)
                 this.formData.append('email', this.email);
                 this.formData.append('phone', this.phone);
                 let obj = {"type": "send", "text": this.message};
                 this.messageBot.push(obj);
-                console.log(this.messageBot)
-
                 this.formData.append('messageText', this.message);
+                this.message = '';
+
                 Vue.axios.post('https://taleantai.com/taleantbot/', this.formData, {
                     mode : 'no-cors',
                     headers: {
@@ -139,7 +138,6 @@ export default {
                         this.first = false
                         setTimeout(function () {
                             this.messageBot.push(obj);
-                            this.message = '';
                             this.currentDateTime()
                         }.bind(this), 1000);
 
@@ -151,7 +149,7 @@ export default {
                 this.messageBot.push(obj);
                 Vue.set(this.messageBot,'send-'+this.random(10) , this.message);
                 this.formData.set('messageText', this.message);
-                console.log(this.message);
+                this.message = '';
                 Vue.axios.post(this.action, this.formData, {
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded',
@@ -168,7 +166,6 @@ export default {
                         this.typing = false;
                         let obj = {"type": "reply", "text": response.data};
                         this.messageBot.push(obj);
-                        this.message = '';
                         this.currentDateTime()
 
                         if (status === 'success') {
@@ -460,7 +457,7 @@ input.taleantAI-write_msg:focus {
 }
 
 .taleantAI-typing{
-    padding: 0 0 0 15px;
+    margin-left: 10px;
 }
 
 

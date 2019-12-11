@@ -62,7 +62,7 @@
                             <div v-if="typing" class="taleantAI-text-left taleantAI-mt-100">
                                 <div class="taleantAI-incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="avater">
                                 </div>
-                                <img class="taleantAI-mt--10" width="50" height="40" src="https://media1.tenor.com/images/ea1209340ee07d9d9dae67dc0d06b4b3/tenor.gif" alt="">
+                                <img class="taleantAI-mt--10 taleantAI-typing-img" width="50" height="40" src="https://media1.tenor.com/images/ea1209340ee07d9d9dae67dc0d06b4b3/tenor.gif" alt="">
                             </div>
                             <div class="taleantAI-type_msg">
                                 <form action="" @submit.prevent="sendMessageSingle">
@@ -429,6 +429,11 @@ export default {
     background: #e52525;
     padding: 8px;
     border-radius: 7px 7px 0 0;
+}
+
+.taleantAI-typing-img{
+    max-height: 40px!important;
+    max-width: 50px!important;
 }
 
 .text-white{

@@ -213,7 +213,7 @@ export default {
 <style scoped>
     .taleantAI-welcome-text{
         /*padding-left: 20px;*/
-        padding: 0 10px;
+        padding: 0 10px!important;
     }
 
     .taleantAI-support-container {

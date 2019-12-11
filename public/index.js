@@ -6,7 +6,7 @@ div.id = "talentAI"
 body.appendChild(div)
 
 var js = document.createElement("script");
-js.src = "https://cdn.statically.io/gh/hellomustaq/chatbot/0a375e92/public/script-link.js";
+js.src = "https://cdn.statically.io/gh/hellomustaq/chatbot/928bc7a7/public/script-link.js";
 js.id = "vue-app-js";
 js.defer = true;
 js.async = true;
@@ -16,5 +16,5 @@ var css = document.createElement('link');
 css.id = "vue-app-css";
 css.rel = "stylesheet";
 css.type = "text/css";
-css.href = "https://cdn.statically.io/gh/hellomustaq/chatbot/0a375e92/dist/css/app.af65291a.css";
+css.href = "https://cdn.statically.io/gh/hellomustaq/chatbot/928bc7a7/dist/css/app.556a8cb9.css";
 head.appendChild(css);

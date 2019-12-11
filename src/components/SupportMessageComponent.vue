@@ -41,7 +41,7 @@
                                     <div v-if="message.type === 'send'" class="taleantAI-outgoing_msg">
                                         <div class="taleantAI-sent_msg">
                                             <p>{{ message.text }}</p>
-                                            <span class="taleantAI-text-right taleantAI-time_date"> 11:01 AM    |    Today</span>
+                                            <span class="taleantAI-text-right taleantAI-time_date"> {{time }} | {{ date }}</span>
                                         </div>
                                     </div>
 
@@ -50,12 +50,19 @@
                                         </div>
                                         <div class="taleantAI-received_msg">
                                             <div class="taleantAI-received_withd_msg">
-                                            <p><span v-html="message.text.response"></span></p>
-                                            <span class="taleantAI-text-left taleantAI-time_date"> 11:01 AM    |    Yesterday</span>
+                                                <p>
+                                                    <span v-html="message.text.response"></span>
+                                                </p>
+                                                <span class="taleantAI-text-left taleantAI-time_date"> {{ time }} | {{ date }}</span>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+                            <div v-if="typing" class="taleantAI-text-left taleantAI-mt-100">
+                                <div class="taleantAI-incoming_msg_img"> <img src="https://ptetutorials.com/images/user-profile.png" alt="avater">
+                                </div>
+                                <img class="taleantAI-mt--10" width="50" height="40" src="https://media1.tenor.com/images/ea1209340ee07d9d9dae67dc0d06b4b3/tenor.gif" alt="">
                             </div>
                             <div class="taleantAI-type_msg">
                                 <form action="" @submit.prevent="sendMessageSingle">
@@ -98,11 +105,15 @@ export default {
                 first : true,
                 messageBot : [],
                 singleMessage : '',
+                time:'',
+                date:'',
+                typing:false
             }
         },
 
         mounted(){
-            // console.log('here');
+            // console.log(this.timestamp);
+            this.currentDateTime()
         },
         methods: {
             sendMessage() {
@@ -123,12 +134,14 @@ export default {
                         'Authorization' : 'Token e68596f710b9163ea420ec33a5774c7dd2b22d44'
                     }})
                     .then(response => {
-                        this.first = false
                         this.sentMessage = true;
-
                         let obj = {"type": "reply", "text": response.data};
-                        this.messageBot.push(obj);
-                        this.message = '';
+                        this.first = false
+                        setTimeout(function () {
+                            this.messageBot.push(obj);
+                            this.message = '';
+                            this.currentDateTime()
+                        }.bind(this), 3000);
 
                     })
             },
@@ -147,15 +160,26 @@ export default {
                 .then(response => {
                     console.log(response.data);
                     this.first = false;
-                    let obj = {"type": "reply", "text": response.data};
-                    this.messageBot.push(obj);
-                    this.message = '';
+                    this.typing = true;
+                    // let elmnt = document.getElementById("ty");
+                    // elmnt.scrollIntoView();
 
-                    if (status === 'success') {
-                        this.sentMessage = true;
-                    } else {
-                        this.error = true;
-                    }
+                    setTimeout(function () {
+                        this.typing = false;
+                        let obj = {"type": "reply", "text": response.data};
+                        this.messageBot.push(obj);
+                        this.message = '';
+                        this.currentDateTime()
+
+                        if (status === 'success') {
+                            this.sentMessage = true;
+                        } else {
+                            this.error = true;
+                        }
+
+                    }.bind(this), 3000)
+
+
                 })
             },
 
@@ -168,6 +192,15 @@ export default {
 
                 return text;
             },
+
+            currentDateTime() {
+                const mlist = [ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ];
+                const today = new Date();
+                const date = today.getDate()+' '+(mlist[today.getMonth()])+', '+ today.getFullYear();
+                const time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+                this.time = time;
+                this.date=date;
+            }
         }
 }
 </script>
@@ -372,6 +405,10 @@ export default {
     padding: 0 0 50px 0;
 }
 
+.taleantAI-mt-10{
+    margin-top: 20px;
+}
+
 .taleantAI-msg_history {
     height: 285px;
     overflow-y: auto;
@@ -379,9 +416,13 @@ export default {
 
 .taleantAI-p-13{
     /*padding : 13px;*/
-    margin-top: 5px;
-    width: 45px;
-    margin: 8px;
+    /*margin-top: 5px;*/
+    width: 38px;
+    margin: 12px;
+}
+
+.taleantAI-mt--10{
+    margin-top: -10px;
 }
 
 .taleantAI-padd {
@@ -401,8 +442,6 @@ export default {
 .taleantAI-text-right{
     text-align: right;
 }
-
-
 
 
 
@@ -442,4 +481,5 @@ export default {
     :-moz-placeholder { /* Firefox 18- */
         font-size: 16px;
     }
+
 </style>

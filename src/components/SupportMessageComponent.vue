@@ -4,7 +4,7 @@
             <div class="taleantAI-support-form taleantAI-support-start" v-if="showForm">
                 <div class="taleantAI-support-body" style="postition:relative;">
                     <div v-if="this.first">
-                        <h3 class="taleantAI-text-left taleantAI-pl-15">Send Message to Alisa!</h3>
+                        <h3 style="padding: 10px 0px 10px 0px;" class="taleantAI-text-left taleantAI-pl-15"><span style="margin-left: 10px">Send Message to Alisa!</span></h3>
                         <p class="taleantAI-welcome-text" v-if="!sentMessage">Use the form below to share your questions, ideas, comments and feedback.</p>
 
                         <div class="taleantAI-success-message" v-if="this.sentMessage">
@@ -97,9 +97,9 @@ export default {
                 phone: '',
                 error: false,
                 formData : new FormData(),
-                action : window.location.origin +'/'+this.domainBody+'/bot/',
+                // action : window.location.origin +'/'+this.domainBody+'/bot/',
                 // action : 'http://127.0.0.1:8000' +'/taleant/bot/',
-                // action : 'https://taleantai.com/taleant/bot/',
+                action : 'https://taleantai.com/taleant/bot/',
                 domainBody : '',
                 first : true,
                 messageBot : [],
@@ -114,11 +114,14 @@ export default {
         mounted(){
             // console.log(this.timestamp);
             this.currentDateTime()
-            let url = window.location.origin;
+            let url = 'https://www.taleantai.com';
             let result = url.split(/[// ]+/);
             let domain = result[result.length-1];
             let domainBody= domain.split('.')
-            this.domainBody = domainBody;
+            this.domainBody = domainBody[domainBody.length-2];
+
+            console.log(result)
+            console.log(domainBody[domainBody.length-2])
 
         },
         methods: {
@@ -237,7 +240,7 @@ export default {
     }
 
     .taleantAI-support-wrapper {
-        background-color: #eaeaea00;
+        background-color: hsl(0, 0%, 92%);
         position: fixed;
         bottom: 90px;
         right: 35px;
@@ -279,7 +282,7 @@ export default {
     }
 
     .taleantAI-support-start p {
-        font-size: 13px;
+        font-size: 12px;
         float: left;
         text-align: left;
     }

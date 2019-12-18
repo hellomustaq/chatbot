@@ -27,9 +27,9 @@
                             </div>
                         </form>
                     </div>
-                    <div style="position:absolute;bottom:0;width:100%;background: #eaeaea; border-radius: 7px" v-else>
+                    <div style="position:absolute;bottom:0;width:100%;background: #eaeaea; border-radius: 7px 7px 0 0" v-else>
                         <div class="taleantAI-padd">
-                            <h6 class="taleantAI-text-left text-white">Chatting with Alisa! </h6>
+                            <h6 class="taleantAI-text-left text-white taleantAI-headline">Chatting with Alisa! </h6>
                         </div>
                         <div class="taleantAI-mesgs">
                             <div class="taleantAI-msg_history" id="taleantAI-msg_history" v-chat-scroll>
@@ -97,8 +97,10 @@ export default {
                 phone: '',
                 error: false,
                 formData : new FormData(),
-                // action : window.location.origin +'/bot',
-                action : 'http://127.0.0.1:8000' +'/bot/',
+                action : window.location.origin +'/'+this.domainBody+'/bot/',
+                // action : 'http://127.0.0.1:8000' +'/taleant/bot/',
+                // action : 'https://taleantai.com/taleant/bot/',
+                domainBody : '',
                 first : true,
                 messageBot : [],
                 singleMessage : '',
@@ -112,6 +114,12 @@ export default {
         mounted(){
             // console.log(this.timestamp);
             this.currentDateTime()
+            let url = window.location.origin;
+            let result = url.split(/[// ]+/);
+            let domain = result[result.length-1];
+            let domainBody= domain.split('.')
+            this.domainBody = domainBody;
+
         },
         methods: {
             sendMessage() {
@@ -229,7 +237,7 @@ export default {
     }
 
     .taleantAI-support-wrapper {
-        background-color: #eaeaea;
+        background-color: #eaeaea00;
         position: fixed;
         bottom: 90px;
         right: 35px;
@@ -462,6 +470,10 @@ input.taleantAI-write_msg:focus {
 
 .taleantAI-typing{
     margin-left: 10px;
+}
+
+.taleantAI-headline{
+    margin: 50px;
 }
 
 

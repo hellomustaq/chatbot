@@ -97,7 +97,7 @@ export default {
                 phone: '',
                 error: false,
                 formData : new FormData(),
-                action : 'https://taleantai.com' +'/'+this.domainBody+'/bot/',
+                action : 'https://taleantai.com/' +this.domainBody+'/bot/',
                 // action : 'http://127.0.0.1:8000' +'/taleant/bot/',
                 // action : 'https://taleantai.com/taleant/bot/',
                 domainBody : '',

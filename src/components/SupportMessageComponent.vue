@@ -97,10 +97,10 @@ export default {
                 phone: '',
                 error: false,
                 formData : new FormData(),
-                action : 'https://taleantai.com/' +this.domainBody+'/bot/',
+                domainBody : '',
+                action : 'https://taleantai.com/',
                 // action : 'http://127.0.0.1:8000' +'/taleant/bot/',
                 // action : 'https://taleantai.com/taleant/bot/',
-                domainBody : '',
                 first : true,
                 messageBot : [],
                 singleMessage : '',
@@ -115,13 +115,16 @@ export default {
             // console.log(this.timestamp);
             this.currentDateTime()
             let url = window.location.origin;
+            // let url = 'https://taleantai.com';
             let result = url.split(/[// ]+/);
             let domain = result[result.length-1];
-            let domainBody= domain.split('.')
-            this.domainBody = domainBody[domainBody.length-2];
+            let domainSplit= domain.split('.')
+
+            this.domainBody = domainSplit[domainSplit.length-2];
 
             console.log(result)
-            console.log(domainBody[domainBody.length-2])
+            console.log(domainSplit[domainSplit.length-2])
+            console.log(this.action)
 
         },
         methods: {
@@ -134,7 +137,7 @@ export default {
                 this.formData.append('messageText', 'hello');
                 this.message = '';
 
-                Vue.axios.post(this.action, this.formData, {
+                Vue.axios.post(this.action + this.domainBody +'/bot/', this.formData, {
                     mode : 'no-cors',
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded',
@@ -162,7 +165,7 @@ export default {
                 Vue.set(this.messageBot,'send-'+this.random(10) , this.message);
                 this.formData.set('messageText', this.message);
                 this.message = '';
-                Vue.axios.post(this.action, this.formData, {
+                Vue.axios.post(this.action + this.domainBody +'/bot/', this.formData, {
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded',
                         // 'Authorization' : 'Token e68596f710b9163ea420ec33a5774c7dd2b22d44'

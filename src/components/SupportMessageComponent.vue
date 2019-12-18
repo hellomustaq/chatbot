@@ -29,7 +29,7 @@
                     </div>
                     <div style="position:absolute;bottom:0;width:100%;background: #eaeaea; border-radius: 7px 7px 0 0" v-else>
                         <div class="taleantAI-padd">
-                            <h6 class="taleantAI-text-left text-white taleantAI-headline">Chatting with Alisa! </h6>
+                            <h4 class="taleantAI-text-left text-white taleantAI-headline">Chatting with Alisa! </h4>
                         </div>
                         <div class="taleantAI-mesgs">
                             <div class="taleantAI-msg_history" id="taleantAI-msg_history" v-chat-scroll>
@@ -476,7 +476,7 @@ input.taleantAI-write_msg:focus {
 }
 
 .taleantAI-headline{
-    margin: 50px;
+    /*margin: 50px;*/
 }
 
 

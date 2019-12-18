@@ -4,7 +4,7 @@
             <div class="taleantAI-support-form taleantAI-support-start" v-if="showForm">
                 <div class="taleantAI-support-body" style="postition:relative;">
                     <div v-if="this.first">
-                        <h3>Send Message to Support Team!</h3>
+                        <h3 class="taleantAI-text-left taleantAI-pl-15">Send Message to Alisa!</h3>
                         <p class="taleantAI-welcome-text" v-if="!sentMessage">Use the form below to share your questions, ideas, comments and feedback.</p>
 
                         <div class="taleantAI-success-message" v-if="this.sentMessage">
@@ -22,10 +22,6 @@
                             <div class="taleantAI-form-group">
                                 <input type="tel" class="taleantAI-form-control" required v-model="phone" name="phone" placeholder="Enter your phone number!">
                             </div>
-
-                            <div class="taleantAI-form-group">
-                                <textarea style="height: 80px;" class="taleantAI-form-control" required rows="3" v-model="message" name="message" placeholder="Write message"></textarea>
-                            </div>
                             <div class="taleantAI-form-group">
                                 <button type="submit" class="taleantAI-form-control btn  btn-default">Send</button>
                             </div>
@@ -33,7 +29,7 @@
                     </div>
                     <div style="position:absolute;bottom:0;width:100%;" v-else>
                         <div class="taleantAI-padd">
-                            <h4 class="taleantAI-text-left text-white">Chatting with support team! </h4>
+                            <h4 class="taleantAI-text-left text-white">Chatting with Alisa! </h4>
                         </div>
                         <div class="taleantAI-mesgs">
                             <div class="taleantAI-msg_history" id="taleantAI-msg_history" v-chat-scroll>
@@ -101,13 +97,15 @@ export default {
                 phone: '',
                 error: false,
                 formData : new FormData(),
-                action : 'https://taleantai.com/taleantbot/',
+                // action : window.location.origin +'/bot',
+                action : 'http://127.0.0.1:8000' +'/bot/',
                 first : true,
                 messageBot : [],
                 singleMessage : '',
                 time:'',
                 date:'',
-                typing:false
+                typing:false,
+                response:''
             }
         },
 
@@ -120,22 +118,25 @@ export default {
                 Vue.set(this.messageBot,'send-'+this.random(10) , this.message)
                 this.formData.append('email', this.email);
                 this.formData.append('phone', this.phone);
-                let obj = {"type": "send", "text": this.message};
-                this.messageBot.push(obj);
-                this.formData.append('messageText', this.message);
+                // let obj = {"type": "send", "text": this.message};
+                // this.messageBot.push(obj);
+                this.formData.append('messageText', 'hello');
                 this.message = '';
 
-                Vue.axios.post('https://taleantai.com/taleantbot/', this.formData, {
+                Vue.axios.post(this.action, this.formData, {
                     mode : 'no-cors',
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded',
                         'X-Requested-With': 'XMLHttpRequest',
-                        'Authorization' : 'Token e68596f710b9163ea420ec33a5774c7dd2b22d44'
+                        // 'Authorization' : 'Token e68596f710b9163ea420ec33a5774c7dd2b22d44'
+                        'Authorization' : 'Token a355b4d3a204c9ca0aef6f6ba2d0c87f3da2ef99'
                     }})
                     .then(response => {
+                        this.response = response
                         this.sentMessage = true;
-                        let obj = {"type": "reply", "text": response.data};
-                        this.first = false
+                        console.log(response.data)
+                        let obj = {"type": "reply", "text":response.data};
+                        this.first = false;
                         setTimeout(function () {
                             this.messageBot.push(obj);
                             this.currentDateTime()
@@ -153,15 +154,13 @@ export default {
                 Vue.axios.post(this.action, this.formData, {
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded',
-                        'Authorization' : 'Token e68596f710b9163ea420ec33a5774c7dd2b22d44'
+                        // 'Authorization' : 'Token e68596f710b9163ea420ec33a5774c7dd2b22d44'
+                        'Authorization' : 'Token a355b4d3a204c9ca0aef6f6ba2d0c87f3da2ef99'
                 }})
                 .then(response => {
                     console.log(response.data);
                     this.first = false;
                     this.typing = true;
-                    // let elmnt = document.getElementById("ty");
-                    // elmnt.scrollIntoView();
-
                     setTimeout(function () {
                         this.typing = false;
                         let obj = {"type": "reply", "text": response.data};
@@ -247,7 +246,8 @@ export default {
 
     .taleantAI-support-form {
         width: 350px;
-        height: 366px;
+        min-height:255px;
+        max-height: 366px;
         text-align: center;
         margin-bottom: 5px;
     }
@@ -411,6 +411,10 @@ export default {
 
 .taleantAI-mt-10{
     margin-top: 20px;
+}
+
+.taleantAI-pl-15{
+    padding-left: 15px;
 }
 
 .taleantAI-msg_history {

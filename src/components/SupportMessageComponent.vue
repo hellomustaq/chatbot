@@ -27,9 +27,9 @@
                             </div>
                         </form>
                     </div>
-                    <div style="position:absolute;bottom:0;width:100%;" v-else>
+                    <div style="position:absolute;bottom:0;width:100%;background: #eaeaea; border-radius: 7px" v-else>
                         <div class="taleantAI-padd">
-                            <h4 class="taleantAI-text-left text-white">Chatting with Alisa! </h4>
+                            <h6 class="taleantAI-text-left text-white">Chatting with Alisa! </h6>
                         </div>
                         <div class="taleantAI-mesgs">
                             <div class="taleantAI-msg_history" id="taleantAI-msg_history" v-chat-scroll>
@@ -246,8 +246,8 @@ export default {
 
     .taleantAI-support-form {
         width: 350px;
-        min-height:255px;
-        max-height: 366px;
+        /*min-height:255px;*/
+        /*max-height: 366px;*/
         text-align: center;
         margin-bottom: 5px;
     }

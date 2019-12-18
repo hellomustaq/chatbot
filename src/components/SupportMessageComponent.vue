@@ -97,9 +97,9 @@ export default {
                 phone: '',
                 error: false,
                 formData : new FormData(),
-                // action : window.location.origin +'/'+this.domainBody+'/bot/',
+                action : window.location.origin +'/'+this.domainBody+'/bot/',
                 // action : 'http://127.0.0.1:8000' +'/taleant/bot/',
-                action : 'https://taleantai.com/taleant/bot/',
+                // action : 'https://taleantai.com/taleant/bot/',
                 domainBody : '',
                 first : true,
                 messageBot : [],
@@ -114,7 +114,7 @@ export default {
         mounted(){
             // console.log(this.timestamp);
             this.currentDateTime()
-            let url = 'https://www.taleantai.com';
+            let url = window.location.origin;
             let result = url.split(/[// ]+/);
             let domain = result[result.length-1];
             let domainBody= domain.split('.')
